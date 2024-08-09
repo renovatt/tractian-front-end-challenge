@@ -20,18 +20,19 @@ export default function TreeNodeComponent({ node }: TreeNodeProps) {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded)
   }
+
   return (
     <div className="mt-2 pl-4">
       <div
-        className="flex cursor-pointer items-center space-x-2"
+        className="group flex cursor-pointer items-center space-x-2 p-[1px] hover:bg-900 hover:text-white"
         onClick={toggleExpand}
       >
         {node.children && node.children.length > 0 && (
           <ChevronRight
-            className={`transform text-gray-400 ${isExpanded ? 'rotate-90' : ''}`}
+            className={`transform text-gray-400 group-hover:text-white ${isExpanded ? 'rotate-90' : ''}`}
           />
         )}
-        <IconComponent className="text-900" />
+        <IconComponent className="text-900 group-hover:text-white" />
         <span>{node.name}</span>
       </div>
       {isExpanded && node.children && node.children.length > 0 && (
