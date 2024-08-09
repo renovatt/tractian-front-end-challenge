@@ -1,3 +1,4 @@
+'use server'
 import { AssetsResponse } from '@/entities/assets'
 import { API_BASE_URL } from '@/shared/static/env'
 

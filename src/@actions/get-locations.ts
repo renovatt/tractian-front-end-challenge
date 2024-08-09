@@ -1,3 +1,4 @@
+'use server'
 import { LocationsResponse } from '@/entities/locations'
 import { API_BASE_URL } from '@/shared/static/env'
 

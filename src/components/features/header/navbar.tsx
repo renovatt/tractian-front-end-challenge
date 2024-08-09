@@ -1,18 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import Button from '../../ui/button'
 import MenuIcon from '../../static/menu-icon'
 import { getCompanies } from '@/@actions/get-companies'
 import { useEffect, useState } from 'react'
 import { Company } from '@/entities/company'
-import { useSaveIdStore } from '@/stores/use-save-id-store'
+import { useSaveCompanyStore } from '@/stores/use-save-company-store'
 
 export default function Navbar() {
   const [menuOptions, setMenuOptions] = useState<Company[]>([])
-  const setId = useSaveIdStore((state) => state.actions.setId)
+  const setId = useSaveCompanyStore((state) => state.actions.setCompany)
 
   const handleLoadCompanies = async () => {
     const menu = await getCompanies()
-    setMenuOptions(menu)
+    if (menu.length > 0) {
+      setMenuOptions(menu)
+      setId(menu[0])
+    }
   }
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export default function Navbar() {
       {menuOptions.map((item) => (
         <Button
           key={item.id}
-          onClick={() => setId(item.id)}
+          onClick={() => setId(item)}
           variant="primary"
           className="flex h-6 items-center text-xs"
         >
