@@ -2,6 +2,7 @@
 import Button from '@/components/ui/button'
 import TreeNode from './tree-node'
 import { useSaveCompanyStore } from '@/stores/use-save-company-store'
+import TreeNodeContent from './tree-node/_components/tree-node-content'
 
 export default function Sidebar() {
   const companyName = useSaveCompanyStore((state) => state.state.company.name)
@@ -40,7 +41,9 @@ export default function Sidebar() {
         <div className="w-2/5 overflow-y-auto border">
           <TreeNode />
         </div>
-        <div className="w-2/3 border">content</div>
+        <div className="w-2/3 border">
+          <TreeNodeContent />
+        </div>
       </section>
     </>
   )
