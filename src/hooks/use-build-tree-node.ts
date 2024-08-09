@@ -22,6 +22,11 @@ export const useBuildTreeNode = () => {
         name: asset.name,
         type: asset.sensorType ? 'component' : 'asset',
         parentId: asset.locationId || asset.parentId,
+        gatewayId: asset.gatewayId,
+        locationId: asset.locationId,
+        sensorId: asset.sensorId,
+        sensorType: asset.sensorType,
+        status: asset.status,
         children: [],
       }
     })
