@@ -11,6 +11,8 @@ export const useTreeNodeData = () => {
   const [treeData, setTreeData] = useState<TreeNode[]>([])
   const [loading, setLoading] = useState<boolean>(false)
 
+  const { buildTree } = useBuildTreeNode()
+
   const id = useSaveCompanyStore((state) => state.state.company.id)
 
   const energy = useFiltersStore(
@@ -19,8 +21,6 @@ export const useTreeNodeData = () => {
   const alert = useFiltersStore(
     (state) => state.state.filters.alert.isActivated,
   )
-
-  const { buildTree } = useBuildTreeNode()
 
   const filterNode = (
     node: TreeNode,
@@ -59,7 +59,34 @@ export const useTreeNodeData = () => {
     [],
   )
 
-  const fetchData = useCallback(async () => {
+  const searchNode = (node: TreeNode, term: string): TreeNode | null => {
+    if (node.name.toLowerCase().includes(term)) {
+      return { ...node }
+    }
+
+    const filteredChildren = node.children
+      ?.map((child) => searchNode(child, term))
+      .filter(Boolean) as TreeNode[]
+
+    if (filteredChildren && filteredChildren.length > 0) {
+      return { ...node, children: filteredChildren }
+    }
+
+    return null
+  }
+
+  const searchTree = useCallback(
+    (tree: TreeNode[], term: string): TreeNode[] => {
+      if (!term) return tree
+
+      return tree
+        .map((node) => searchNode(node, term.toLowerCase()))
+        .filter(Boolean) as TreeNode[]
+    },
+    [],
+  )
+
+  const handleFetchData = useCallback(async () => {
     if (id) {
       setLoading(true)
       try {
@@ -88,7 +115,7 @@ export const useTreeNodeData = () => {
 
   useEffect(() => {
     if (id) {
-      fetchData()
+      handleFetchData()
     }
   }, [id, energy, alert])
 
@@ -97,5 +124,6 @@ export const useTreeNodeData = () => {
   return {
     treeData: memoizedTreeData,
     loading,
+    searchTree,
   }
 }
