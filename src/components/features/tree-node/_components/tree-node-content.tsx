@@ -32,11 +32,13 @@ export default function TreeNodeContent() {
       </header>
 
       <article className="m-4 flex flex-col space-y-8">
-        <section className="flex gap-6">
-          <div className="flex h-56 w-80 items-center justify-center rounded border border-dotted border-900 bg-700">
+        <section className="flex flex-col gap-6 lg:flex-row">
+          <div className="flex h-40 items-center justify-center rounded border border-dotted border-900 bg-700 lg:h-56 lg:w-80">
             <div className="flex cursor-pointer flex-col items-center justify-center gap-2">
               <FilePlus className="text-900" />
-              <span className="text-900">Adicione imagem do Ativo</span>
+              <span className="text-center text-900">
+                Adicione imagem do Ativo
+              </span>
             </div>
           </div>
 
@@ -60,7 +62,7 @@ export default function TreeNodeContent() {
 
         <hr className="w-full" />
 
-        <section className="flex items-center justify-start gap-64">
+        <section className="flex items-center justify-start lg:gap-52">
           {node?.sensorId && (
             <ContentBoxLabel
               title="Sensor"

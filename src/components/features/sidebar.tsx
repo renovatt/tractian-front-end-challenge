@@ -18,8 +18,8 @@ export default function Sidebar() {
   )
 
   return (
-    <>
-      <section className="flex items-center justify-between">
+    <div className="size-full">
+      <section className="flex flex-col items-start justify-between gap-2 lg:flex-row lg:items-center">
         <div className="flex items-center gap-2">
           <h2 className="font-bold">Ativos</h2>/
           {companyName && (
@@ -53,14 +53,14 @@ export default function Sidebar() {
         </section>
       </section>
 
-      <section className="flex h-[93%] w-full gap-4">
-        <div className="w-2/5 overflow-y-auto border">
+      <section className="my-2 flex w-full flex-col gap-4 pb-5 lg:h-[93%] lg:flex-row lg:pb-0">
+        <div className="h-80 min-h-80 overflow-y-auto border lg:h-auto lg:w-2/5">
           <TreeNode />
         </div>
-        <div className="w-2/3 border">
+        <div className="border lg:w-2/3">
           <TreeNodeContent />
         </div>
       </section>
-    </>
+    </div>
   )
 }

@@ -11,11 +11,11 @@ export default function ContentBoxLabel({
   value,
 }: TreeNodeContentLabelProps) {
   return (
-    <div className="space-y-3">
+    <div className="w-36 space-y-3">
       <label className="font-semibold">{title}</label>
-      <div className="flex items-center justify-center gap-2">
-        {Icon && <Icon />}
-        <p className="text-gray-400">{value}</p>
+      <div className="flex items-center justify-start gap-2">
+        {Icon && <Icon className="size-5" />}
+        <p className="whitespace-nowrap text-gray-400">{value}</p>
       </div>
     </div>
   )
