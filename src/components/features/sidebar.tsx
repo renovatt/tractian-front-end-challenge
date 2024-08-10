@@ -3,9 +3,19 @@ import Button from '@/components/ui/button'
 import TreeNode from './tree-node'
 import { useSaveCompanyStore } from '@/stores/use-save-company-store'
 import TreeNodeContent from './tree-node/_components/tree-node-content'
+import { CircleAlert, Zap } from 'lucide-react'
+import { useFiltersStore } from '@/stores/use-filters-store'
 
 export default function Sidebar() {
   const companyName = useSaveCompanyStore((state) => state.state.company.name)
+  const setFilter = useFiltersStore((state) => state.actions.setFilter)
+
+  const energy = useFiltersStore(
+    (state) => state.state.filters?.energy.isActivated,
+  )
+  const alert = useFiltersStore(
+    (state) => state.state.filters?.alert.isActivated,
+  )
 
   return (
     <>
@@ -21,17 +31,23 @@ export default function Sidebar() {
 
         <section className="flex items-center gap-2">
           <Button
-            onClick={() => {}}
-            variant="outline"
-            className="border-gray-300 font-semibold text-gray-500"
+            onClick={() => setFilter('energy')}
+            variant={energy ? 'primary' : 'outline'}
+            className="group flex items-center gap-2 border-gray-300 font-semibold text-gray-500 hover:bg-900 hover:text-white"
           >
+            <Zap
+              className={`${energy ? 'text-white' : 'text-900'} size-4 group-hover:text-white`}
+            />
             Sensor de Energia
           </Button>
           <Button
-            onClick={() => {}}
-            variant="outline"
-            className="border-gray-300 font-semibold text-gray-500"
+            onClick={() => setFilter('alert')}
+            variant={alert ? 'primary' : 'outline'}
+            className="group flex items-center gap-2 border-gray-300 font-semibold text-gray-500 hover:bg-900 hover:text-white"
           >
+            <CircleAlert
+              className={`${alert ? 'text-white' : 'text-900'} size-4 group-hover:text-white`}
+            />
             Critico
           </Button>
         </section>
