@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import Button from '../../ui/button'
 import MenuIcon from '../../static/menu-icon'
@@ -11,17 +10,16 @@ export default function Navbar() {
   const [menuOptions, setMenuOptions] = useState<Company[]>([])
   const setId = useSaveCompanyStore((state) => state.actions.setCompany)
 
-  const handleLoadCompanies = async () => {
-    const menu = await getCompanies()
-    if (menu.length > 0) {
-      setMenuOptions(menu)
-      setId(menu[0])
-    }
-  }
-
   useEffect(() => {
+    const handleLoadCompanies = async () => {
+      const menu = await getCompanies()
+      if (menu.length > 0) {
+        setMenuOptions(menu)
+        setId(menu[0])
+      }
+    }
     handleLoadCompanies()
-  }, [])
+  }, [setId])
 
   return (
     <nav className="flex items-center justify-center gap-4">
